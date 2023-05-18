@@ -4,64 +4,23 @@ using UnityEngine;
 
 public class Camera_Follow : MonoBehaviour
 {
-    public Vector3 baseOffset;
-    public Vector3 shiftOffset;
-    public Vector3 Offset;
-    public Transform target;
-    public float smoothTime;
-    Vector3 currentVelocity = Vector3.zero;
-    public Vector3 baseCameraAngle;
-    public Vector3 shiftCameraAngle;
-    public float shiftCameraAngleSpeed;
-    private Vector3 currentAngle;
-    private Vector3 targetPosition;
+    public GameObject player; // The target player object
+    public float smoothSpeed = 0.125f; // The smoothness of the camera movement (smaller number is slower)
 
-    // Start is called before the first frame update
+    private Vector3 offset; // The initial distance between the player and the camera
+
     void Start()
     {
-        currentAngle = transform.eulerAngles;
-        Offset = baseOffset;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //if (Input.GetKey(KeyCode.LeftShift))
-        if (false)
-        {
-            currentAngle = new Vector3(
-                Mathf.LerpAngle(currentAngle.x, shiftCameraAngle.x, Time.deltaTime * shiftCameraAngleSpeed),
-                Mathf.LerpAngle(currentAngle.y, shiftCameraAngle.y, Time.deltaTime * shiftCameraAngleSpeed),
-                Mathf.LerpAngle(currentAngle.z, shiftCameraAngle.z, Time.deltaTime * shiftCameraAngleSpeed)
-            );
- 
-            transform.eulerAngles = currentAngle;
-
-            Offset = shiftOffset;
-        }
-        else
-        {
-            currentAngle = new Vector3(
-                Mathf.LerpAngle(currentAngle.x, baseCameraAngle.x, Time.deltaTime * shiftCameraAngleSpeed),
-                Mathf.LerpAngle(currentAngle.y, baseCameraAngle.y, Time.deltaTime * shiftCameraAngleSpeed),
-                Mathf.LerpAngle(currentAngle.z, baseCameraAngle.z, Time.deltaTime * shiftCameraAngleSpeed)
-            );
- 
-            transform.eulerAngles = currentAngle;
-
-            Offset = baseOffset;
-        }
+        // Calculate and store the initial offset value
+        offset = transform.position - player.transform.position;
     }
 
     void LateUpdate()
     {
-        
-        targetPosition = new Vector3(
-                Mathf.LerpAngle(targetPosition.x, target.position.x + Offset.x, Time.deltaTime * shiftCameraAngleSpeed),
-                Mathf.LerpAngle(targetPosition.y, target.position.y + Offset.y, Time.deltaTime * shiftCameraAngleSpeed),
-                Mathf.LerpAngle(targetPosition.z, target.position.z + Offset.z, Time.deltaTime * shiftCameraAngleSpeed)
-            );
-        transform.position = targetPosition;
-        // Vector3.SmoothDamp(transform.position, targetPosition, ref currentVelocity, smoothTime);
+        // Create a new position based on the player's position and the initial offset
+        Vector3 targetPosition = new Vector3(transform.position.x, transform.position.y, player.transform.position.z + offset.z);
+
+        // Smoothly move the camera towards the target position
+        transform.position = Vector3.Lerp(transform.position, targetPosition, smoothSpeed);
     }
 }
