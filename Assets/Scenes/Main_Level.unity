@@ -152,6 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ad610b92a79d4dcba09617fb041e146, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstTilePrefab: {fileID: 7705642699187221028, guid: fd1b4c8715dcf48e7ada4870a6ca78e9,
+    type: 3}
   prefabTiles:
   - {fileID: 7705642699187221028, guid: fd1b4c8715dcf48e7ada4870a6ca78e9, type: 3}
   - {fileID: 3006420636852098509, guid: d6ba05c3bf1ce4a7a8be79007a200bdf, type: 3}
@@ -786,6 +788,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pushPower: 2
+  pushUpPower: 0.5
 --- !u!64 &1830397535
 MeshCollider:
   m_ObjectHideFlags: 0

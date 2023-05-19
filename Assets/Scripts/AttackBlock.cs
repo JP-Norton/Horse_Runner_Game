@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class AttackBlock : MonoBehaviour
 {
-    public float pushPower = 2.0f;  // Set the force with which you want to push the object
+    public float pushPower = 2.0f;  // Set the horizontal force with which you want to push the object
+    public float pushUpPower = 2.0f;  // Set the upward force with which you want to push the object
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +26,8 @@ public class AttackBlock : MonoBehaviour
         if (rb != null)  // Check if the object we collided with has a rigidbody
         {
             Vector3 pushDirection = rb.transform.position - transform.position;  // Determine the direction to push
-            pushDirection.y = 0;  // keep it in the plane, don't push upwards or downwards
+
+            pushDirection.y = pushUpPower;  // set the upward direction
 
             rb.AddForce(pushDirection.normalized * pushPower, ForceMode.Impulse);  // Apply the force to the rigidbody
         }
