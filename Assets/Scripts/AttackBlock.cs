@@ -31,5 +31,10 @@ public class AttackBlock : MonoBehaviour
 
             rb.AddForce(pushDirection.normalized * pushPower, ForceMode.Impulse);  // Apply the force to the rigidbody
         }
+
+        if (other.gameObject.CompareTag("Enemy")) 
+        {
+            Destroy(other.gameObject);
+        }
     }
 }
