@@ -4,6 +4,12 @@ public class Coin_Manager : MonoBehaviour
 {
     public int coinCount = 0;
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        coinCount = 0;
+    }
+
     private void OnTriggerEnter(Collider other) 
     {
         if (other.gameObject.CompareTag("Coin")) 
